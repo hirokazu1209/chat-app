@@ -1,5 +1,10 @@
 <%# サイドバーとチャット画面の部分テンプレートを読み込む ※ファイル名先頭の「_」や拡張子は必要無し%>
 <div class="wrapper">
-  <%= render "side_bar" %>
-  <%= render "main_chat" %>
+  <div class="side-bar">
+    <%= render "side_bar"%>
+  </div>
+  
+  <div class="chat">
+    <%= render "main_chat"%>
+  </div>
 </div>

@@ -5,5 +5,8 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
   
   # 空の場合はDBに保存しないというバリデーションを設定
-  validates :name, presence: true       
+  validates :name, presence: true  
+  
+  has_many :room_users
+  has_many :rooms, through: :room_users
 end

@@ -16,6 +16,18 @@
         <label class='chat-room-form__label' for='chat_room_チャットメンバー'>チャットメンバー</label>
       </div>
       <div class='chat-room-form__field--right'>
+        <%# プルダウンの実装 %>
+        <%# # room[user_ids][]で送られるパラメーター %>
+        <%# {"room" => {"user_ids" => ["選択したユーザーのid"]}}   %>
+        <select name="room[user_ids][]">
+          <option value="">チャットするユーザーを選択してください</option>
+          <%# 現在ログインしているユーザーをeachメソッドの処理から取り除く %>
+          <% User.where.not(id: current_user.id).each do |user| %>
+            <option value=<%= user.id %>><%= user.name %></option>
+          <% end %>
+        </select>
+        <%# type属性にhiddenを指定することで、画面上には表示されないinput要素を作成 %>
+        <input name="room[user_ids][]" type="hidden" value=<%= current_user.id %>>
       </div>
     </div>
     <div class='chat-room-form__field'>

@@ -6,5 +6,10 @@ class Message < ApplicationRecord
   # 各レコードとファイルを1対1の関係で紐づけるメソッド
   has_one_attached :image  
   # 「content」カラムに、presence: trueを設けることで、空の場合はDBに保存しないというバリデーションを設定
-  validates :content, presence: true
+  validates :content, presence: true, unless: :was_attached?
+
+  # was_attached?  画像があればtrue、なければfalseを返す仕組み
+  def was_attached?
+    self.image.attached?
+  end
 end

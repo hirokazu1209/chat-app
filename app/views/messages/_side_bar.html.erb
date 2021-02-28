@@ -15,7 +15,8 @@
     <div class="room">
       <div class="room-name">
       <%# room.nameの「name」は、roomsテーブルのカラム名 %>
-        <a href="#"><%= room.name %></a>
+      <%# パスにroomを引数とすることで、メッセージと紐付いているチャットルームのidを持たせることが可能 %>
+        <%= link_to room.name, room_messages_path(room) %>
       </div>
     </div>
   <% end %>

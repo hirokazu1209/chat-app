@@ -122,3 +122,9 @@ select {
   height: 80px;
   width: 100%;
 }
+
+/* 生成された要素を非表示 */
+/* 表示を変更するdisplayプロパティに、contentsを指定 → その要素のボックスのみ非表示 */
+.field_with_errors {
+  display: contents;
+}

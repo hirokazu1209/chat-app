@@ -18,5 +18,9 @@
       <%# messagesテーブルのcontentカラムから、メッセージの内容を取得 %>
       <%= message.content %>
     </div>
+    <%# image_tagメソッドを記述して、画像を表示 %>
+    <%# 要素の生成に条件をつけ、attached?メソッドで画像の添付をチェック %>
+    <%# variantメソッドを使用することで、ファイルの表示サイズを指定 %>
+    <%= image_tag message.image.variant(resize: '500x500'), class: 'message-image' if message.image.attached? %>
   </div>
 </div>

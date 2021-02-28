@@ -7,6 +7,10 @@ class MessagesController < ApplicationController
     # パスにroom_idが含まれているため、paramsというハッシュオブジェクトの中に、room_idという値が存在。
     # →そのため、params[:room_id]と記述することでroom_idを取得。
     @room = Room.find(params[:room_id]) 
+    # チャットルームに紐付いている全てのメッセージ（@room.messages）を@messagesと定義
+    # 一覧画面で表示するメッセージ情報には、ユーザー情報も紐付いて表示
+    # includes(:user)と記述、ユーザー情報を1度のアクセスでまとめて取得（N+1問題の解消）
+    @messages = @room.messages.includes(:user)
   end
 
   def create
@@ -19,6 +23,9 @@ class MessagesController < ApplicationController
       # 成功：redirect_toメソッドを用いてmessagesコントローラーのindexアクションに再度リクエストを送信し、新たにインスタンス変数を生成
       redirect_to room_messages_path(@room)
     else
+      # 投稿に失敗したときの処理にも、同様に@messagesを定義
+      # @messageの情報を保持しつつindex.html.erbを参照可能
+      @messages = @room.messages.includes(:user)
       # 失敗：renderメソッドを用いてindexアクションのindex.html.erbを表示するように指定。
       # このとき、indexアクションのインスタンス変数はそのままindex.html.erbに渡され、同じページに戻る
       render :index

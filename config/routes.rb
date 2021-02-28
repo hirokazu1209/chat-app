@@ -5,5 +5,9 @@ Rails.application.routes.draw do
   # ユーザー編集画面の表示へアクセスするための記述
   resources :users, only: [:edit, :update]
   # 新規チャットルームの作成で動くアクションは「new」と「create」
-  resources :rooms, only: [:new, :create]
+  resources :rooms, only: [:new, :create] do
+    # どのルームで投稿されたメッセージなのかをパスから判断できるようにしたいので、ルーティングのネストを利用
+    # メッセージに結びつくルームのidの情報を含んだパスを、受け取れるようになる
+    resources :messages, only: [:index, :create]
+  end
 end
